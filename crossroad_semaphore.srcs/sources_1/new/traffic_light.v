@@ -14,7 +14,7 @@
 
 module traffic_light(
     input [1:0] select,
-    output wire[4:0] lights
+    output reg[4:0] lights
     );
 
     always @(*) begin
