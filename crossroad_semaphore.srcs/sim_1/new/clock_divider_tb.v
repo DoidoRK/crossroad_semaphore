@@ -25,10 +25,4 @@ module clock_divider_tb;
         forever #5 clock_in = ~clock_in; // Invert clock every 5 time units in order to generate 100Mhz clock
     end
 
-    // Stimulus
-//    initial begin
-//        // Run simulation for 1 second
-//        #200000000 $finish;
-//    end
-
 endmodule // clock_divider_tb
