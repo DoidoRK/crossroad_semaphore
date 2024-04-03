@@ -4,13 +4,13 @@ module traffic_buffer_tb;
 
     // Inputs
     reg enable;
-    reg [15:0] SW;
+    reg[15:0] SW;
     
     // Outputs
-    wire [3:0] sem0_car_num_reg;
-    wire [3:0] sem0_people_num_reg;
-    wire [3:0] sem1_car_num_reg;
-    wire [3:0] sem1_people_num_reg;
+    wire[3:0] sem0_car_num_reg;
+    wire[3:0] sem0_people_num_reg;
+    wire[3:0] sem1_car_num_reg;
+    wire[3:0] sem1_people_num_reg;
     
     // Instantiate the traffic_buffer module
     traffic_buffer dut (

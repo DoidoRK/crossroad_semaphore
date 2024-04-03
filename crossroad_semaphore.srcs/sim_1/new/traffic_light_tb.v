@@ -3,7 +3,7 @@
 module traffic_light_tb;
 
     //Inputs
-    reg [1:0] select;
+    reg[1:0] select;
 
     //Outputs
     wire PERSON_G;

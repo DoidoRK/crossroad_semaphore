@@ -10,7 +10,7 @@ module counter_tb;
     reg rst;
 
     // Outputs
-    wire [7:0] count;
+    wire[7:0] count;
 
     // Instantiate the counter module
     counter dut (
