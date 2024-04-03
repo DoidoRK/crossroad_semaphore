@@ -1,12 +1,10 @@
 `timescale 1ns / 1ps
 
 module clock_divider(
-    clock_in,
-    clock_out
+    input clock_in,
+    output reg clock_out
     );
 
-    input clock_in;
-    output reg clock_out;
     reg[27:0] counter = 28'd0;
 //    parameter DIVIDER = 28'd100000000;
    parameter DIVIDER = 28'd10;
