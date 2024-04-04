@@ -2,8 +2,6 @@
 
 module semaphore_top (
     input CLK100MHZ,
-    output wire clk_1hz,
-    input wire buff_en,
     input wire[15:0] SW,
     output wire[4:0] LED,
     output wire LED17_R,
@@ -13,31 +11,36 @@ module semaphore_top (
     output wire LED16_G,
     output wire LED16_B
 );
-    // Define registers to store the outputs of traffic_buffer
-    wire[3:0] sem0_car_num_reg;
-    wire[3:0] sem0_people_num_reg;
-    wire[3:0] sem1_car_num_reg;
-    wire[3:0] sem1_people_num_reg;
+    //  Time counter data
+    wire clk_1hz;
+    wire rst_count;
+    wire[7:0] count;
 
-    wire[1:0] state_traffic_light_0;
-    wire[1:0] state_traffic_light_1;
+    //  Switch input data
+    wire read_en;
 
+    //  Car and people counters
+    wire[3:0] sem0_car_num;
+    wire[3:0] sem0_people_num;
+    wire[3:0] sem1_car_num;
+    wire[3:0] sem1_people_num;
+
+    //  Traffic lights states
+    reg[1:0] state_traffic_light_0;
+    reg[1:0] state_traffic_light_1;
+
+    //  Clock divider instance
     clock_divider dut2(.clock_in(CLK100MHZ),.clock_out(clk_1hz));
 
-    // Instantiate traffic_buffer module
-    traffic_buffer buffer_inst (
-        .buff_en(buff_en),
-
-        .SW(SW),
-
-        .sem0_car_num_reg(sem0_car_num_reg),
-        .sem0_people_num_reg(sem0_people_num_reg),
-        .sem1_car_num_reg(sem1_car_num_reg),
-        .sem1_people_num_reg(sem1_people_num_reg)
+    //  Seconds counter
+    counter counter_instance(
+        .in_signal(clk_1hz),
+        .rst(rst_count),
+        .count(count)
     );
 
-    // Instantiate traffic_light module
-    traffic_light_0 light_inst (
+    // Semafore 0 Traffic_light module instance
+    traffic_light sem_0 (
         .select(state_traffic_light_0), // Using only two LSBs of sem0_car_num_reg
         .PERSON_G(LED[0]),
         .PERSON_R(LED[1]),
@@ -46,7 +49,18 @@ module semaphore_top (
         .CAR_B(LED17_B)
     );
 
-    traffic_light_1 light_inst (
+    // Semafore 0 Traffic_buffer instance
+    traffic_buffer sem_0_inputs (
+        .buff_en(enable),
+        
+        .switch_input(SW[7:0]),
+
+        .car_num(sem0_car_num_reg),
+        .people_num(sem0_people_num_reg)
+    );
+
+    // Semafore 1 Traffic_light module instance
+    traffic_light sem_1 (
         .select(state_traffic_light_1), // Using only two LSBs of sem1_car_num_reg
         .PERSON_G(LED[2]),
         .PERSON_R(LED[3]),
@@ -55,6 +69,16 @@ module semaphore_top (
         .CAR_B(LED16_B)
     );
 
-    // Implement State Machine from here
+    // Semafore 1 Traffic_buffer instance
+    traffic_buffer sem_1_inputs (
+        .buff_en(enable),
+        
+        .switch_input(SW[15:7]),
+
+        .car_num(sem1_car_num_reg),
+        .people_num(sem1_people_num_reg)
+    );
+
+    //  State Machine implementation
 
 endmodule // semaphore_top

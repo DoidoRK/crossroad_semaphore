@@ -3,11 +3,8 @@
 module semaphore_top_tb;
 
     // Inputs
-    reg buff_en;
-    reg[4:0] sem0_car_wire;
-    reg[4:0] sem0_people_wire;
-    reg[4:0] sem1_car_wire;
-    reg[4:0] sem1_people_wire;
+    reg CLK100MHZ;
+    reg[15:0] SW;
     
     // Outputs
 
@@ -27,12 +24,34 @@ module semaphore_top_tb;
     
     wire[4:0] LED;
     
-    // Instantiate the semaphore_top module
-    semaphore_top dut ();
+    // Top module instance
+    semaphore_top dut (
+        .CLK100MHZ(CLK100MHZ),
+        .SW(SW),
+        .LED(LED),
+        .LED17_R(LED17_R),
+        .LED17_G(LED17_G),
+        .LED17_B(LED17_B),
+        .LED16_R(LED16_R),
+        .LED16_G(LED16_G),
+        .LED16_B(LED16_B)
+    );
+
+    // Clock generation
+    always #5 CLK100MHZ = ~CLK100MHZ; // Toggle clock every 5 ns (period of 100MHz)
+
+    //  Changes input values every clock posedge
+    always @(posedge CLK100MHZ) begin
+        SW = SW + 16'b0001000100010001; // Increment SW value
+    end
 
     // Stimulus
     initial begin
+        // Initialize clock
+        CLK100MHZ = 0;
 
+        // Initialize SW
+        SW = 16'b0000000000000000;
     end
 
 endmodule // semaphore_top_tb
