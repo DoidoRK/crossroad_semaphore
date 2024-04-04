@@ -5,7 +5,6 @@ module traffic_buffer_tb;
     // Inputs
     parameter CLK100MHZ = 5;  // Generates clock in a 100Mhz rate
     reg clk;
-    reg enable;
     reg[7:0] SW = 8'b00000000;
     
     // Outputs
@@ -14,8 +13,6 @@ module traffic_buffer_tb;
     
     // Instantiate the traffic_buffer module
     traffic_buffer dut (
-        .buff_en(enable),
-        
         .switch_input(SW),
 
         .car_num(car_num_reg),
@@ -24,12 +21,9 @@ module traffic_buffer_tb;
 
     always #CLK100MHZ clk = ~clk;
 
-    always #10 enable = ~enable; //Enables buffer read every 10 time units.
-
     // Stimulus
     initial begin
         // Initialize signals
-        enable = 0;
         clk = 0;
 
         // Change SW values every 5 clocks

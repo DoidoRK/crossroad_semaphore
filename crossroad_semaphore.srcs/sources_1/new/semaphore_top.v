@@ -16,9 +16,6 @@ module semaphore_top (
     wire rst_count;
     wire[7:0] count;
 
-    //  Switch input data
-    wire read_en;
-
     //  Car and people counters
     wire[3:0] sem0_car_num;
     wire[3:0] sem0_people_num;
@@ -51,8 +48,6 @@ module semaphore_top (
 
     // Semafore 0 Traffic_buffer instance
     traffic_buffer sem_0_inputs (
-        .buff_en(enable),
-        
         .switch_input(SW[7:0]),
 
         .car_num(sem0_car_num_reg),
@@ -71,14 +66,10 @@ module semaphore_top (
 
     // Semafore 1 Traffic_buffer instance
     traffic_buffer sem_1_inputs (
-        .buff_en(enable),
-        
         .switch_input(SW[15:7]),
 
         .car_num(sem1_car_num_reg),
         .people_num(sem1_people_num_reg)
     );
-
-    //  State Machine implementation
 
 endmodule // semaphore_top

@@ -1,7 +1,6 @@
 `timescale 1ns / 1ps
 
 module traffic_buffer(
-    input wire buff_en,
 
     input wire[7:0] switch_input,
 
@@ -12,7 +11,7 @@ module traffic_buffer(
     reg[3:0] car_num_reg;
     reg[3:0] people_num_reg;
 
-    always @(posedge buff_en) begin
+    always @(*) begin
         car_num_reg <= switch_input[3:0];
         people_num_reg <= switch_input[7:4];
     end
@@ -22,4 +21,3 @@ module traffic_buffer(
     assign people_num = people_num_reg;
 
 endmodule //traffic_buffer
-
