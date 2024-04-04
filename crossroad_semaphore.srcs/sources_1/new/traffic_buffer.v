@@ -3,34 +3,23 @@
 module traffic_buffer(
     input wire buff_en,
 
-    input wire[15:0] SW,
+    input wire[7:0] switch_input,
 
-    output reg[3:0] sem0_car_num_reg,
-    output reg[3:0] sem0_people_num_reg,
-    output reg[3:0] sem1_car_num_reg,
-    output reg[3:0] sem1_people_num_reg
+    output wire[3:0] car_num,
+    output wire[3:0] people_num
     );
+    
+    reg[3:0] car_num_reg;
+    reg[3:0] people_num_reg;
 
     always @(posedge buff_en) begin
-        sem0_car_num_reg[0] <= SW[0];
-        sem0_car_num_reg[1] <= SW[1];
-        sem0_car_num_reg[2] <= SW[2];
-        sem0_car_num_reg[3] <= SW[3];
-
-        sem0_people_num_reg[0] <= SW[4];
-        sem0_people_num_reg[1] <= SW[5];
-        sem0_people_num_reg[2] <= SW[6];
-        sem0_people_num_reg[3] <= SW[7];
-
-        sem1_car_num_reg[0] <= SW[8];
-        sem1_car_num_reg[1] <= SW[9];
-        sem1_car_num_reg[2] <= SW[10];
-        sem1_car_num_reg[3] <= SW[11];
-
-        sem1_people_num_reg[0] <= SW[12];
-        sem1_people_num_reg[1] <= SW[13];
-        sem1_people_num_reg[2] <= SW[14];
-        sem1_people_num_reg[3] <= SW[15];
+        car_num_reg <= switch_input[3:0];
+        people_num_reg <= switch_input[7:4];
     end
+
+    // Assign values from registers to output wires
+    assign car_num = car_num_reg;
+    assign people_num = people_num_reg;
+
 endmodule //traffic_buffer
 

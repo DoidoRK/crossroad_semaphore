@@ -6,24 +6,20 @@ module traffic_buffer_tb;
     parameter CLK100MHZ = 5;  // Generates clock in a 100Mhz rate
     reg clk;
     reg enable;
-    reg[15:0] SW = 16'b0000000000000000;
+    reg[7:0] SW = 8'b00000000;
     
     // Outputs
-    wire[3:0] sem0_car_num_reg;
-    wire[3:0] sem0_people_num_reg;
-    wire[3:0] sem1_car_num_reg;
-    wire[3:0] sem1_people_num_reg;
+    wire[3:0] car_num_reg;
+    wire[3:0] people_num_reg;
     
     // Instantiate the traffic_buffer module
     traffic_buffer dut (
         .buff_en(enable),
         
-        .SW(SW),
+        .switch_input(SW),
 
-        .sem0_car_num_reg(sem0_car_num_reg),
-        .sem0_people_num_reg(sem0_people_num_reg),
-        .sem1_car_num_reg(sem1_car_num_reg),
-        .sem1_people_num_reg(sem1_people_num_reg)
+        .car_num(car_num_reg),
+        .people_num(people_num_reg)
     );
 
     always #CLK100MHZ clk = ~clk;
