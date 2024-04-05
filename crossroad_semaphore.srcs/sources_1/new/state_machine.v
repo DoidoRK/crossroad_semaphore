@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 
 module state_machine(
-    input clk, //clock do tempo real (segundo)
+    input clk,
     input wire[3:0] sem_0_car_num,
     input wire[3:0] sem_1_car_num,
     input wire[3:0] sem_0_people_num,
@@ -68,4 +68,4 @@ always @(negedge clk) begin
     endcase
 end
 
-endmodule // controle
+endmodule // state_machine

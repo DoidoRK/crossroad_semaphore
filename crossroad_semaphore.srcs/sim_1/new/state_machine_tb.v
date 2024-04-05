@@ -29,7 +29,7 @@ module state_machine_tb;
         sem_1_people_num = 14;
         sem_0_car_num = 15;
         sem_1_car_num = 1;
-        forever #2 clk = ~clk; // Invert clock every 5 time units to generate a clock
+        forever #2 clk = ~clk; // Invert clock every 5 time units to generate a 100MHz clock
     end
 
-endmodule // clock_divider_tb
+endmodule // state_machine_tb
