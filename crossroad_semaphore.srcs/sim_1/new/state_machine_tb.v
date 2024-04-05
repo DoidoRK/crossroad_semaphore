@@ -1,28 +1,35 @@
 `timescale 1ns / 1ps
 
 module state_machine_tb;
-    wire[7:0] count;
-    reg[3:0] sem0_car_num;
-    reg[3:0] sem0_people_num;
-    reg[3:0] sem1_car_num;
-    reg[3:0] sem1_people_num;
 
-    wire rst_count;
-    wire read_en;
-    reg[1:0] state_sem_0;
-    reg[1:0] state_sem_1;
+    // Inputs
+    reg clk;
+    reg [3:0] sem_0_car_num;
+    reg [3:0] sem_1_car_num;
+    reg [3:0] sem_0_people_num;
+    reg [3:0] sem_1_people_num;
+    wire [1:0] sem_0_state;
+    wire [1:0] sem_1_state;
 
-    state_machine dut(
-        .count(count),
-        .sem0_car_num(sem0_car_num),
-        .sem0_people_num(sem0_people_num),
-        .sem1_car_num(sem1_car_num),
-        .sem1_people_num(sem1_people_num),
-
-        .rst_count(rst_count),
-        .read_en(read_en),
-        .state_sem_0(state_sem_0),
-        .state_sem_1(state_sem_1)
+    // State machine instance
+    state_machine dut (
+        .clk(clk),
+        .sem_0_car_num(sem_0_car_num),
+        .sem_1_car_num(sem_1_car_num),
+        .sem_0_people_num(sem_0_people_num),
+        .sem_1_people_num(sem_1_people_num),
+        .sem_0_state(sem_0_state),
+        .sem_1_state(sem_1_state)
     );
 
-endmodule   //state_machine_tb
+    // Clock generation
+    initial begin
+        clk = 0;
+        sem_0_people_num = 2;
+        sem_1_people_num = 14;
+        sem_0_car_num = 15;
+        sem_1_car_num = 1;
+        forever #2 clk = ~clk; // Invert clock every 5 time units to generate a clock
+    end
+
+endmodule // clock_divider_tb
