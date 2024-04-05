@@ -18,22 +18,26 @@ module semaphore_top (
 
     //  Car and people counters
     wire[3:0] sem0_car_num;
-    wire[3:0] sem0_people_num;
     wire[3:0] sem1_car_num;
+    wire[3:0] sem0_people_num;
     wire[3:0] sem1_people_num;
 
     //  Traffic lights states
-    reg[1:0] state_traffic_light_0;
-    reg[1:0] state_traffic_light_1;
+    wire[1:0] state_traffic_light_0;
+    wire[1:0] state_traffic_light_1;
 
     //  Clock divider instance
     clock_divider dut2(.clock_in(CLK100MHZ),.clock_out(clk_1hz));
 
-    //  Seconds counter
-    counter counter_instance(
-        .in_signal(clk_1hz),
-        .rst(rst_count),
-        .count(count)
+    //  State machine instance
+    state_machine state_machine(
+        .clk(clk_1hz),
+        .sem_0_car_num(sem0_car_num),
+        .sem_1_car_num(sem1_car_num),
+        .sem_0_people_num(sem0_people_num),
+        .sem_1_people_num(sem1_people_num),
+        .sem_0_state(state_traffic_light_0),
+        .sem_1_state(state_traffic_light_1)
     );
 
     // Semafore 0 Traffic_light module instance
