@@ -6,8 +6,8 @@ module clock_divider(
     );
 
     reg[27:0] counter = 28'd0;
-//    parameter DIVIDER = 28'd100000000;
-   parameter DIVIDER = 28'd10;
+    parameter DIVIDER = 28'd100000000;  //For running on board
+//    parameter DIVIDER = 28'd10;   //  For simulation
     
     always@(posedge clock_in)
     begin

@@ -11,10 +11,8 @@ module semaphore_top (
     output wire LED16_G,
     output wire LED16_B
 );
-    //  Time counter data
+    //  Clock divider wires
     wire clk_1hz;
-    wire rst_count;
-    wire[7:0] count;
 
     //  Car and people counters
     wire[3:0] sem0_car_num;
@@ -54,8 +52,8 @@ module semaphore_top (
     traffic_buffer sem_0_inputs (
         .switch_input(SW[7:0]),
 
-        .car_num(sem0_car_num_reg),
-        .people_num(sem0_people_num_reg)
+        .car_num(sem0_car_num),
+        .people_num(sem0_people_num)
     );
 
     // Semafore 1 Traffic_light module instance
@@ -72,8 +70,8 @@ module semaphore_top (
     traffic_buffer sem_1_inputs (
         .switch_input(SW[15:7]),
 
-        .car_num(sem1_car_num_reg),
-        .people_num(sem1_people_num_reg)
+        .car_num(sem1_car_num),
+        .people_num(sem1_people_num)
     );
 
 endmodule // semaphore_top
