@@ -3,7 +3,7 @@
 module semaphore_top (
     input CLK100MHZ,
     input wire[15:0] SW,
-    output wire[4:0] LED,
+    output wire[3:0] LED,
     output wire LED17_R,
     output wire LED17_G,
     output wire LED17_B,
@@ -41,11 +41,11 @@ module semaphore_top (
     // Semafore 0 Traffic_light module instance
     traffic_light sem_0 (
         .select(state_traffic_light_0), // Using only two LSBs of sem0_car_num_reg
-        .PERSON_G(LED[0]),
-        .PERSON_R(LED[1]),
-        .CAR_R(LED17_R),
-        .CAR_G(LED17_G),
-        .CAR_B(LED17_B)
+        .person_g(LED[0]),
+        .person_r(LED[1]),
+        .car_r(LED17_R),
+        .car_g(LED17_G),
+        .car_b(LED17_B)
     );
 
     // Semafore 0 Traffic_buffer instance
@@ -59,16 +59,16 @@ module semaphore_top (
     // Semafore 1 Traffic_light module instance
     traffic_light sem_1 (
         .select(state_traffic_light_1), // Using only two LSBs of sem1_car_num_reg
-        .PERSON_G(LED[2]),
-        .PERSON_R(LED[3]),
-        .CAR_R(LED16_R),
-        .CAR_G(LED16_G),
-        .CAR_B(LED16_B)
+        .person_g(LED[2]),
+        .person_r(LED[3]),
+        .car_r(LED16_R),
+        .car_g(LED16_G),
+        .car_b(LED16_B)
     );
 
     // Semafore 1 Traffic_buffer instance
     traffic_buffer sem_1_inputs (
-        .switch_input(SW[15:7]),
+        .switch_input(SW[15:8]),
 
         .car_num(sem1_car_num),
         .people_num(sem1_people_num)

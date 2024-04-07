@@ -6,25 +6,25 @@ module traffic_light_tb;
     reg[1:0] select;
 
     //Outputs
-    wire PERSON_G;
-    wire PERSON_R;
-    wire CAR_R;
-    wire CAR_G;
-    wire CAR_B;
+    wire person_g;
+    wire person_r;
+    wire car_r;
+    wire car_g;
+    wire car_b;
     
     // Instantiate the traffic_light module
     traffic_light light_inst (
         .select(select), // Using only two LSBs of sem0_car_num_reg
-        .PERSON_G(PERSON_G),
-        .PERSON_R(PERSON_R),
-        .CAR_R(CAR_R),
-        .CAR_G(CAR_G),
-        .CAR_B(CAR_B)
+        .person_g(person_g),
+        .person_r(person_r),
+        .car_r(car_r),
+        .car_g(car_g),
+        .car_b(car_b)
     );
 
     // Stimulus
     initial begin
-        $monitor("Time=%0t, Select=%b, Lights=%b", $time, select, PERSON_G,PERSON_R,CAR_R,CAR_G,CAR_B);
+        $monitor("Time=%0t, Select=%b, Lights=%b", $time, select, person_g,person_r,car_r,car_g,car_b);
         
         select = 2'b00;
 
